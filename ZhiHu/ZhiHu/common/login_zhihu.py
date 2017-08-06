@@ -6,8 +6,12 @@
 # @Software: PyCharm
 
 import re
+import os
 import time
+import json
+import pickle
 import requests
+from requests import utils
 from http import cookies
 from http import cookiejar
 
@@ -16,16 +20,20 @@ from ZhiHu.settings import USER_AGENT
 from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
 
 
-class login_zhihu(object):
+class LoginZhihu(object):
     def __init__(self):
-        self.phone_num = input("phone_num\n")
-        self.password = input("password\n")
+        # self.phone_num = input("phone_num\n")
+        # self.password = input("password\n")
         self.captcha = ""
         self._xsrf = ""
         self.url = "https://www.zhihu.com"
 
         self.session = requests.session()
-        self.session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
+        # self.session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
+        # try:
+        #     self.session.cookies.load(ignore_discard=True)
+        # except:
+        #     pass
 
     def get_xsrf(self, url):
         index_page = self.session.get(url, headers=DEFAULT_REQUEST_HEADERS)
@@ -54,17 +62,22 @@ class login_zhihu(object):
         post_url = 'https://www.zhihu.com/login/phone_num'
         postdata = {
             '_xsrf': self.get_xsrf(self.url),
-            'password': self.password,
+            # 'password': self.password,
+            'password': "codewithpython666",
             'remember_me': 'true',
-            'phone_num': self.phone_num,
+            # 'phone_num': self.phone_num,
+            'phone_num': '13735846612',
             "captcha": self.get_captcha()
         }
         login_page = self.session.post(post_url, data=postdata, headers=DEFAULT_REQUEST_HEADERS)
-        # self.session.save(cookies.txt)
-        print(self.session.cookies)
-
+        # self.session.cookies.save("cookies.txt")
+        with open('cookies.txt', 'w') as f:
+            # pickle.dump(self.session.cookies.get_dict(), f)
+            # f.write(json.dump(self.session.cookies.get_dict()))
+            json.dump(self.session.cookies.get_dict(), f)
+            print("获取并保存cookie成功！")
 
 if __name__ == '__main__':
-    login_instance = login_zhihu()
+    login_instance = LoginZhihu()
     login_instance.login()
 
