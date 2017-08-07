@@ -102,3 +102,6 @@ DEFAULT_REQUEST_HEADERS = {
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR))
+
+CAPTCHA_PATH = PROJECT_DIR + "/tmp/captcha.jpg"
+COOKIES_PATH = PROJECT_DIR + "/tmp/cookies.json"

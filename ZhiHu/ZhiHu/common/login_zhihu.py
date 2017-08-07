@@ -9,31 +9,25 @@ import re
 import os
 import time
 import json
-import pickle
 import requests
-from requests import utils
-from http import cookies
-from http import cookiejar
 
 from PIL import Image
-from ZhiHu.settings import USER_AGENT, COOKIES
+
 from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
+from ZhiHu.settings import CAPTCHA_PATH, COOKIES_PATH
 
 
 class LoginZhihu(object):
     def __init__(self):
         # self.phone_num = input("phone_num\n")
         # self.password = input("password\n")
+        self.phone_num = os.getenv('phone_num')
+        self.password = os.getenv('password')
         self.captcha = ""
         self._xsrf = ""
         self.url = "https://www.zhihu.com"
 
         self.session = requests.session()
-        # self.session.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
-        # try:
-        #     self.session.cookies.load(ignore_discard=True)
-        # except:
-        #     pass
 
     def get_xsrf(self, url):
         index_page = self.session.get(url, headers=DEFAULT_REQUEST_HEADERS)
@@ -46,15 +40,14 @@ class LoginZhihu(object):
         t = str(int(time.time() * 1000))
         captcha_url = 'https://www.zhihu.com/captcha.gif?r=' + t + "&type=login"
         r = self.session.get(captcha_url, headers=DEFAULT_REQUEST_HEADERS)
-        with open('captcha.jpg', 'wb') as f:
+        with open(CAPTCHA_PATH, 'wb') as f:
             f.write(r.content)
             f.close()
-        try:
-            im = Image.open('captcha.jpg')
-            im.show()
-            im.close()
-        except:
-            print(u'请到 %s 目录找到captcha.jpg 手动输入' % os.path.abspath('captcha.jpg'))
+
+        im = Image.open(CAPTCHA_PATH)
+        im.show()
+        im.close()
+
         captcha = input("please input the captcha\n>")
         return captcha
 
@@ -63,22 +56,16 @@ class LoginZhihu(object):
         postdata = {
             '_xsrf': self.get_xsrf(self.url),
             'password': self.password,
-
             'remember_me': 'true',
             'phone_num': self.phone_num,
-
             "captcha": self.get_captcha()
         }
         login_page = self.session.post(post_url, data=postdata, headers=DEFAULT_REQUEST_HEADERS)
-        # self.session.cookies.save("cookies.txt")
-        with open('cookies.txt', 'w') as f:
-            # pickle.dump(self.session.cookies.get_dict(), f)
+
+        with open(COOKIES_PATH, 'w') as f:
+
             # f.write(json.dump(self.session.cookies.get_dict()))
             json.dump(self.session.cookies.get_dict(), f)
-            COOKIES = json.dumps()
             print("获取并保存cookie成功！")
 
-if __name__ == '__main__':
-    login_instance = LoginZhihu()
-    login_instance.login()
 
