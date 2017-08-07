@@ -16,7 +16,7 @@ from http import cookies
 from http import cookiejar
 
 from PIL import Image
-from ZhiHu.settings import USER_AGENT
+from ZhiHu.settings import USER_AGENT, COOKIES
 from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
 
 
@@ -62,11 +62,11 @@ class LoginZhihu(object):
         post_url = 'https://www.zhihu.com/login/phone_num'
         postdata = {
             '_xsrf': self.get_xsrf(self.url),
-            # 'password': self.password,
-            'password': "codewithpython666",
+            'password': self.password,
+
             'remember_me': 'true',
-            # 'phone_num': self.phone_num,
-            'phone_num': '13735846612',
+            'phone_num': self.phone_num,
+
             "captcha": self.get_captcha()
         }
         login_page = self.session.post(post_url, data=postdata, headers=DEFAULT_REQUEST_HEADERS)
@@ -75,6 +75,7 @@ class LoginZhihu(object):
             # pickle.dump(self.session.cookies.get_dict(), f)
             # f.write(json.dump(self.session.cookies.get_dict()))
             json.dump(self.session.cookies.get_dict(), f)
+            COOKIES = json.dumps()
             print("获取并保存cookie成功！")
 
 if __name__ == '__main__':
