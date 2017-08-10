@@ -11,8 +11,6 @@
 import pytesseract
 from PIL import Image
 
-from ZhiHu.settings import CAPTCHA_PATH
-
 # 二值化
 threshold = 140
 table = []

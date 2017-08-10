@@ -11,11 +11,14 @@
 import os
 import sys
 
+from bots import setup_django_env
+setup_django_env()
+
 
 BOT_NAME = 'ZhiHu'
 
-SPIDER_MODULES = ['ZhiHu.spiders']
-NEWSPIDER_MODULE = 'ZhiHu.spiders'
+SPIDER_MODULES = ['ZhiHu.bots']
+NEWSPIDER_MODULE = 'ZhiHu.bots'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -100,8 +103,8 @@ DEFAULT_REQUEST_HEADERS = {
 
 # 项目路径
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
-sys.path.insert(0, os.path.join(BASE_DIR))
+# BASE_DIR = os.path.dirname(PROJECT_DIR)
+# sys.path.insert(0, os.path.join(BASE_DIR))
 
 CAPTCHA_PATH = PROJECT_DIR + "/tmp/captcha.jpg"
 COOKIES_PATH = PROJECT_DIR + "/tmp/cookies.json"

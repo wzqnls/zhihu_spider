@@ -6,8 +6,8 @@
 
 import json
 
-from ZhiHu.common.login_zhihu import LoginZhihu
-from ZhiHu.settings import CAPTCHA_PATH
+from SpiderBackEnd.bots.ZhiHu import CAPTCHA_PATH
+from SpiderBackEnd.bots.ZhiHu import LoginZhihu
 
 
 def get_cookies():
