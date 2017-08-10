@@ -5,16 +5,16 @@
 # @File    : login_zhihu.py
 # @Software: PyCharm
 
-import re
-import os
-import time
 import json
-import requests
+import os
+import re
+import time
 
+import requests
 from PIL import Image
 
-from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
-from ZhiHu.settings import CAPTCHA_PATH, COOKIES_PATH
+from SpiderBackEnd.bots.ZhiHu import CAPTCHA_PATH, COOKIES_PATH
+from SpiderBackEnd.bots.ZhiHu import DEFAULT_REQUEST_HEADERS
 
 
 class LoginZhihu(object):

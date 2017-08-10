@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import json
-
 import scrapy
 
-from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
-from ZhiHu.utils.for_cookies import get_cookies
+from SpiderBackEnd.bots.ZhiHu import DEFAULT_REQUEST_HEADERS
+from SpiderBackEnd.bots.ZhiHu import get_cookies
 
 
 class PeopleRelationsSpider(scrapy.Spider):
