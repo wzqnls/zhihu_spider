@@ -17,5 +17,5 @@ class PeopleRelationsSpider(scrapy.Spider):
         pass
 
     def start_requests(self):
-        return [scrapy.Request('https://www.zhihu.com/question/60673524', headers=DEFAULT_REQUEST_HEADERS,cookies=get_cookies(), callback=self.parse)]
+        return [scrapy.Request('https://www.zhihu.com/question/60673524', headers=DEFAULT_REQUEST_HEADERS, cookies=get_cookies(), callback=self.parse)]
 
