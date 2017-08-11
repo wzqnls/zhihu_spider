@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
+from scrapy.loader import ItemLoader
 
-from SpiderBackEnd.bots.ZhiHu import DEFAULT_REQUEST_HEADERS
-from SpiderBackEnd.bots.ZhiHu import get_cookies
+from bots.ZhiHu.ZhiHu.settings import DEFAULT_REQUEST_HEADERS
+from bots.ZhiHu.ZhiHu.utils.for_cookies import get_cookies
+from bots.ZhiHu.ZhiHu.items import PeopleRelationsItem
 
 
 class PeopleRelationsSpider(scrapy.Spider):
@@ -11,9 +13,12 @@ class PeopleRelationsSpider(scrapy.Spider):
     allowed_domains = ["https://www.zhihu.com"]
     start_urls = ['https://www.zhihu.com/']
 
-    def parse(self, response):
+    def start_requests(self):
+        return [scrapy.Request('https://www.zhihu.com/people/li-shuo-1-31/following', cookies=get_cookies(), callback=self.parse_page)]
+
+    def parse_page(self, response):
         pass
 
-    def start_requests(self):
-        return [scrapy.Request('https://www.zhihu.com/question/60673524', headers=DEFAULT_REQUEST_HEADERS, cookies=get_cookies(), callback=self.parse)]
 
+    def parse_page_info(self, reponse):
+        pass
