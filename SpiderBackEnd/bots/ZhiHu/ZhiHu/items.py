@@ -6,6 +6,8 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import MapCompose, TakeFirst, Join
 from scrapy_djangoitem import DjangoItem
 
 from zhihu_backend.models import Customer
@@ -17,5 +19,10 @@ class ZhihuItem(scrapy.Item):
     pass
 
 
-class PeopleRelationsItem(DjangoItem):
+class PeopleInfoItemLoader(ItemLoader):
+    # 自定义itemloader
+    default_output_processor = TakeFirst()
+
+
+class PeopleInfoItem(DjangoItem):
     django_model = Customer
