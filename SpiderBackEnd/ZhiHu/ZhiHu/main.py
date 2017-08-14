@@ -7,5 +7,7 @@
 
 from scrapy import cmdline
 
+# from ZhiHu.common.login_zhihu import LoginZhihu
+
 
 cmdline.execute("scrapy crawl people_relations".split())

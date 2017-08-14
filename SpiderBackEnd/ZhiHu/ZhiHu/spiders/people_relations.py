@@ -3,11 +3,10 @@
 from urllib import parse
 
 import scrapy
+from ZhiHu.utils.for_cookies import get_cookies
 from scrapy.http import Request
 
-from bots.ZhiHu.ZhiHu.settings import DEFAULT_REQUEST_HEADERS
-from bots.ZhiHu.ZhiHu.utils.for_cookies import get_cookies
-from bots.ZhiHu.ZhiHu.items import PeopleInfoItem, PeopleInfoItemLoader
+from ZhiHu.items import PeopleInfoItem, PeopleInfoItemLoader
 
 
 class PeopleRelationsSpider(scrapy.Spider):
@@ -33,7 +32,7 @@ class PeopleRelationsSpider(scrapy.Spider):
             nums = int(page_nums_list[-2])
             for num in range(2, nums+1):
                 # 构造下页url
-                next_url= response.url + "?page={}".format(num)
+                next_url = response.url + "?page={}".format(num)
                 yield Request(url=next_url, callback=self.parse)
 
     def parse_info(self, response):

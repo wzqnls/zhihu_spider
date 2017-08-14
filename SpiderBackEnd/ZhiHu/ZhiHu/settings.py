@@ -11,19 +11,18 @@
 import os
 import sys
 
-from bots import setup_django_env
-setup_django_env()
+from SpiderBackEnd.settings import BASE_DIR
 
 
 BOT_NAME = 'ZhiHu'
 
-SPIDER_MODULES = ['ZhiHu.bots']
-NEWSPIDER_MODULE = 'ZhiHu.bots'
+SPIDER_MODULES = ['ZhiHu.spiders']
+NEWSPIDER_MODULE = 'ZhiHu.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36"
-COOKIES = ""
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
@@ -108,3 +107,10 @@ PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 CAPTCHA_PATH = PROJECT_DIR + "/tmp/captcha.jpg"
 COOKIES_PATH = PROJECT_DIR + "/tmp/cookies.json"
+
+# django pythonpath setting
+
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'SpiderBackEnd.settings'
+import django
+django.setup()

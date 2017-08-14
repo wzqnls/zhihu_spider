@@ -13,8 +13,8 @@ import time
 import requests
 from PIL import Image
 
-from bots.ZhiHu.ZhiHu.settings import CAPTCHA_PATH, COOKIES_PATH
-from bots.ZhiHu.ZhiHu.settings import DEFAULT_REQUEST_HEADERS
+from ZhiHu.settings import CAPTCHA_PATH, COOKIES_PATH
+from ZhiHu.settings import DEFAULT_REQUEST_HEADERS
 
 
 class LoginZhihu(object):

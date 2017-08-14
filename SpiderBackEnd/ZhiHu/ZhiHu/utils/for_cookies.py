@@ -6,14 +6,14 @@
 
 import json
 
-from SpiderBackEnd.bots.ZhiHu import CAPTCHA_PATH
-from SpiderBackEnd.bots.ZhiHu import LoginZhihu
+from ZhiHu.settings import COOKIES_PATH
+from ZhiHu.common.login_zhihu import LoginZhihu
 
 
 def get_cookies():
-    someone = LoginZhihu()
-    someone.login()
-    with open(CAPTCHA_PATH, 'rt', encoding='utf8') as f:
+    # user = LoginZhihu()
+    # user.login()
+    with open(COOKIES_PATH, 'rt', encoding='utf8') as f:
         for line in f:
             cookies = json.loads(line)
             return cookies
