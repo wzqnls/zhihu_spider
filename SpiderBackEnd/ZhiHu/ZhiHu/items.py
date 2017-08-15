@@ -19,10 +19,5 @@ class ZhihuItem(scrapy.Item):
     pass
 
 
-class PeopleInfoItemLoader(ItemLoader):
-    # 自定义itemloader
-    default_output_processor = TakeFirst()
-
-
 class PeopleInfoItem(DjangoItem):
     django_model = Customer
