@@ -111,6 +111,7 @@ COOKIES_PATH = PROJECT_DIR + "/tmp/cookies.json"
 # django pythonpath setting
 
 sys.path.append(BASE_DIR)
+
 os.environ['DJANGO_SETTINGS_MODULE'] = 'SpiderBackEnd.settings'
 import django
 django.setup()

@@ -67,5 +67,3 @@ class LoginZhihu(object):
             # f.write(json.dump(self.session.cookies.get_dict()))
             json.dump(self.session.cookies.get_dict(), f)
             print("获取并保存cookie成功！")
-
-

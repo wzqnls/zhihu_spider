@@ -11,8 +11,8 @@ from ZhiHu.common.login_zhihu import LoginZhihu
 
 
 def get_cookies():
-    # user = LoginZhihu()
-    # user.login()
+    user = LoginZhihu()
+    user.login()
     with open(COOKIES_PATH, 'rt', encoding='utf8') as f:
         for line in f:
             cookies = json.loads(line)

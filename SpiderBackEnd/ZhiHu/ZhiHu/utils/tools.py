@@ -7,6 +7,6 @@
 import re
 
 
-def get_num_from_str(str):
+def get_num_from_str(string):
     pattern = re.compile("\d+")
-    return re.findall(pattern, str)
+    return re.findall(pattern, string)
