@@ -48,19 +48,19 @@ class LoginZhihu(object):
         im.show()
         im.close()
 
-        captcha = input("please input the captcha\n>")
+        captcha = input("please input the captcha:\n>")
         return captcha
 
     def login(self):
         post_url = 'https://www.zhihu.com/login/phone_num'
-        postdata = {
+        data = {
             '_xsrf': self.get_xsrf(self.url),
             'password': self.password,
             'remember_me': 'true',
             'phone_num': self.phone_num,
             "captcha": self.get_captcha()
         }
-        login_page = self.session.post(post_url, data=postdata, headers=DEFAULT_REQUEST_HEADERS)
+        login_page = self.session.post(post_url, data=data, headers=DEFAULT_REQUEST_HEADERS)
 
         with open(COOKIES_PATH, 'w') as f:
 

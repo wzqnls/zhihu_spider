@@ -6,7 +6,7 @@ from urllib import parse
 import scrapy
 from scrapy.http import Request
 
-from ZhiHu.utils.for_cookies import get_cookies
+from ZhiHu.utils.for_cookies import get_available_cookies
 from ZhiHu.utils.tools import get_num_from_str
 from ZhiHu.items import PeopleInfoItem
 
@@ -22,14 +22,19 @@ class PeopleRelationsSpider(scrapy.Spider):
     start_user = "li-shuo-1-31"
 
     def start_requests(self):
-        yield scrapy.Request(url=self.user_url.format(user=self.start_user), meta={"user": self.start_user}, cookies=get_cookies(), callback=self.parse_userinfo)
+        yield scrapy.Request(url=self.user_url.format(user=self.start_user), meta={"user": self.start_user},
+                             cookies=get_available_cookies(), callback=self.check_login)
         # return scrapy.Request(self.api_url.format(user="li-shuo-1-31", offset=0, limit=20), cookies=get_cookies(), callback=self.parse)
+
+    def check_login(self, response):
+        text = response.text
+        pass
 
     def parse_userinfo(self, response):
         item = PeopleInfoItem()
 
         # 行业,职业,教育信息
-        work_info = response.css("industry", ".ProfileHeader-info .ProfileHeader-infoItem::text").extract()
+        work_info = response.css(".ProfileHeader-info .ProfileHeader-infoItem::text").extract()
         try:
             item["industry"] = work_info[0]
         except IndexError:
