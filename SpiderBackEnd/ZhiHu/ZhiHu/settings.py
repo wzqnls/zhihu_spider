@@ -74,9 +74,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'ZhiHu.pipelines.ZhihuPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'ZhiHu.pipelines.ZhihuPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -108,6 +108,14 @@ PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 CAPTCHA_PATH = PROJECT_DIR + "/tmp/captcha.jpg"
 COOKIES_PATH = PROJECT_DIR + "/tmp/cookies.json"
 
+REDIRECT_ENABLED = False
+
+# db
+MYSQL_HOST = "localhost"
+MYSQL_DB = 'zhihu_spider'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = '666'
+
 # django pythonpath setting
 
 sys.path.append(BASE_DIR)
@@ -115,3 +123,4 @@ sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'SpiderBackEnd.settings'
 import django
 django.setup()
+

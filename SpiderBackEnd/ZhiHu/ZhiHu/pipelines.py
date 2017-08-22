@@ -4,8 +4,17 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import MySQLdb
+import MySQLdb.cursors
+from twisted.enterprise import adbapi
+
+from ZhiHu.items import PeopleInfoItem
 
 
 class ZhihuPipeline(object):
     def process_item(self, item, spider):
-        return item
+        item.save()
+
+
+
+

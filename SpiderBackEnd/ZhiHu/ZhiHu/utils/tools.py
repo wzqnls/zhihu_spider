@@ -9,4 +9,4 @@ import re
 
 def get_num_from_str(string):
     pattern = re.compile("\d+")
-    return re.findall(pattern, string)
+    return [int(i) for i in re.findall(pattern, string)]

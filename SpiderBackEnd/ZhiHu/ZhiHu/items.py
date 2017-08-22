@@ -10,7 +10,7 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, TakeFirst, Join
 from scrapy_djangoitem import DjangoItem
 
-from zhihu_backend.models import Customer
+from zhihu_backend.models import People
 
 
 class ZhihuItem(scrapy.Item):
@@ -20,4 +20,4 @@ class ZhihuItem(scrapy.Item):
 
 
 class PeopleInfoItem(DjangoItem):
-    django_model = Customer
+    django_model = People

@@ -21,21 +21,22 @@ def read_cookies():
 
 
 def check_cookies(func):
-    def check():
-        cookies = func()
-        return requests.get(url="https://www.zhihu.com/inbox", headers=DEFAULT_REQUEST_HEADERS, cookies=cookies, allow_redirects=False)
 
     @wraps(func)
     def wrapper():
-        if check().status_code == 200:
-            return True
+        cookies = func()
+        result = requests.get(url="https://www.zhihu.com/inbox", headers=DEFAULT_REQUEST_HEADERS,
+                              cookies=cookies, allow_redirects=False)
+
+        if result.status_code == 200:
+            return cookies
         else:
             os.remove(COOKIES_PATH)
             LoginZhihu().login()
-            if check().status_code == 200:
-                return True
+            if result.status_code == 200:
+                return cookies
             else:
-                return False
+                return
     return wrapper
 
 
