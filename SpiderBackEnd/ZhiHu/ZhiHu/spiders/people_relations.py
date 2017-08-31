@@ -62,11 +62,14 @@ class PeopleRelationsSpider(scrapy.Spider):
 
         # 赞同数
         approval_info = response.css(".Card .IconGraf::text").extract()
-        item["approval_num"] = get_num_from_str(approval_info[-1])[0]
+        item["approval_num"] = get_num_from_str(approval_info[-1])[0] if len(approval_info) else 0
 
         # 感谢和收藏数
         praise_info = response.css(".Card .Profile-sideColumnItemValue::text").extract()
-        item["thanks_num"], item["collected_num"] = [i for i in get_num_from_str(praise_info[-1])]
+        if len(praise_info):
+            item["thanks_num"], item["collected_num"] = [i for i in get_num_from_str(praise_info[-1])]
+        else:
+            item["thanks_num"], item["collected_num"] = 0, 0
 
         # 关注与被关注
         follow_info = response.css(".FollowshipCard-counts .NumberBoard-value::text").extract()
@@ -75,12 +78,19 @@ class PeopleRelationsSpider(scrapy.Spider):
 
 
         # 其他关注部分
+        # 部分用户没有赞助live信息，故对匹配结果多加一层判断
         other_follow_info = response.css(".Profile-lightList .Profile-lightItemValue::text").extract()
-        item["follow_live_num"] = other_follow_info[0]
-        item["follow_topic_num"] = other_follow_info[1]
-        item["follow_special_column_num"] = other_follow_info[2]
-        item["follow_question_num"] = other_follow_info[3]
-        item["follow_collection_num"] = other_follow_info[4]
+        if len(other_follow_info) == 5:
+            item["follow_live_num"] = other_follow_info[0]
+            item["follow_topic_num"] = other_follow_info[1]
+            item["follow_special_column_num"] = other_follow_info[2]
+            item["follow_question_num"] = other_follow_info[3]
+            item["follow_collection_num"] = other_follow_info[4]
+        else:
+            item["follow_topic_num"] = other_follow_info[0]
+            item["follow_special_column_num"] = other_follow_info[1]
+            item["follow_question_num"] = other_follow_info[2]
+            item["follow_collection_num"] = other_follow_info[3]
 
         yield scrapy.Request(url=self.user_api.format(user=response.meta.get("user")),
                              cookies=self.cookies, meta={"item": item},
@@ -98,10 +108,10 @@ class PeopleRelationsSpider(scrapy.Spider):
         item["url"] = data["url"]
         item["avatar_url_template"] = data["avatar_url_template"]
 
-        # yield scrapy.Request(url=self.follow_url.format(user=data["url_token"]),
-        #                      cookies=self.cookies, callback=self.parse_followinfo)
-        # yield scrapy.Request(url=self.followed_url.format(user=data["url_token"]),
-        #                      cookies=self.cookies, callback=self.parse_followinfo)
+        yield scrapy.Request(url=self.follow_url.format(user=data["url_token"]),
+                             cookies=self.cookies, callback=self.parse_followinfo)
+        yield scrapy.Request(url=self.followed_url.format(user=data["url_token"]),
+                             cookies=self.cookies, callback=self.parse_followinfo)
 
         yield item
 

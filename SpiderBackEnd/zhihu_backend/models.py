@@ -4,7 +4,7 @@ from django.db import models
 class People(models.Model):
     id = models.CharField(verbose_name="id", max_length=50, primary_key=True)
     name = models.CharField(verbose_name="姓名", max_length=50, null=True, blank=True)
-    headline = models.CharField(verbose_name="个性签名", max_length=128, null=True)
+    headline = models.CharField(verbose_name="个性签名", max_length=512, null=True)
     industry = models.CharField(verbose_name="行业", max_length=128, null=True)
     job_history = models.CharField(verbose_name="职业经历", max_length=128, null=True)
     education = models.CharField(verbose_name="教育经历", max_length=128, null=True)
