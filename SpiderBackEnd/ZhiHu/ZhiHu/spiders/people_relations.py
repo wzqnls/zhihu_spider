@@ -27,12 +27,12 @@ class PeopleRelationsSpider(scrapy.Spider):
     cookies = get_available_cookies()
 
     def start_requests(self):
-        # yield scrapy.Request(url=self.user_url.format(user=self.start_user), meta={"user": self.start_user},
-        #                      cookies=self.cookies, callback=self.parse_userinfo)
+        yield scrapy.Request(url=self.user_url.format(user=self.start_user), meta={"user": self.start_user},
+                             cookies=self.cookies, callback=self.parse_userinfo)
         yield scrapy.Request(url=self.follow_url.format(user=self.start_user),
                              cookies=self.cookies, callback=self.parse_followinfo)
-        # yield scrapy.Request(url=self.followed_url.format(user=self.start_user),
-        #                      cookies=self.cookies, callback=self.parse_followinfo)
+        yield scrapy.Request(url=self.followed_url.format(user=self.start_user),
+                             cookies=self.cookies, callback=self.parse_followinfo)
 
     def parse_userinfo(self, response):
         item = PeopleInfoItem()
