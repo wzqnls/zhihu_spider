@@ -8,7 +8,7 @@ constantly==15.1.0
 cryptography==2.0.3
 cssselect==1.0.1
 Cython==0.26
-Django==1.11.4
+Django==2.2.24
 hyperlink==17.3.0
 idna==2.5
 incremental==17.5.0
