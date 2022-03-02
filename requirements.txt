@@ -26,7 +26,7 @@ pytesseract==0.1.7
 pytz==2017.2
 queuelib==1.4.2
 requests==2.18.3
-Scrapy==1.4.0
+Scrapy==1.8.2
 scrapy-djangoitem==1.1.1
 service-identity==17.0.0
 six==1.10.0
